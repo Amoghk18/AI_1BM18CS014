@@ -31,12 +31,13 @@ def startCleaning(floor):
             for j in range(len(floor[i])):
                 if floor[i][j] == 1:
                     floor = clean(floor, i, j)
-                    printFloor(floor, i, j)
+                printFloor(floor, i, j)
         else:
             for j in range(len(floor[i])-1, -1, -1):
                 if floor[i][j] == 1:
                     floor = clean(floor, i, j)
-                    printFloor(floor, i, j)
+                printFloor(floor, i, j)
+        
 
 def start():
     newFloor = []
