@@ -1,51 +1,50 @@
-noPred = 0
-noArg = [None for i in range(10)]
-nouse = ''
-predicate = [None for i in range(10)]
-argument = [[None for i in range(10)] for i in range(10)]
+count = 0
+arguCount = [None for i in range(10)]
+preds = [None for i in range(10)]
+args = [[None for i in range(10)] for i in range(10)]
 
 
 def main():
-    global noPred
+    global count
     char = 'y'
     while(char == 'y'):
-        noPred = int(input("Enter Number of Predicates: "))
-        for i in range(noPred):
+        count = int(input("Enter Number of Predicates: "))
+        for i in range(count):
             print("Enter the predicate ", (i+1), " :")
-            predicate[i] = input()
-            print("Enter No.of Arguments for thePredicate ", predicate[i], " :")
-            noArg[i] = int(input())
+            preds[i] = input()
+            print("Enter No.of Arguments for thePredicate ", preds[i], " :")
+            arguCount[i] = int(input())
 
-            for j in range(noArg[i]):
+            for j in range(arguCount[i]):
                 print("Enter argument ", j+1, " :")
-                argument[i][j] = input()
+                args[i][j] = input()
 
-        printPredicate()
-        check_arg_pred()
+        printAns()
+        predCheck()
         char = input("Do you want to continue(y/n):   ")
 
 
-def printPredicate():
+def printAns():
 
-    print("*PREDICATES ARE*")
-    for i in range(noPred):
-        print(predicate[i], "(", end="")
-        for j in range(noArg[i]):
-            print(argument[i][j], end="")
-            if(j != noArg[i]-1):
+    print("The given Predicates are")
+    for i in range(count):
+        print(preds[i], "(", end="")
+        for j in range(arguCount[i]):
+            print(args[i][j], end="")
+            if(j != arguCount[i]-1):
                 print(",", end="")
         print(")")
 
 
 def unify():
     flag = 0
-    for i in range(noPred-1):
-        for j in range(noArg[i]):
-            if(argument[i][j] != argument[i+1][j]):
+    for i in range(count-1):
+        for j in range(arguCount[i]):
+            if(args[i][j] != args[i+1][j]):
                 flag = 0
                 if(flag == 0):
                     print("The substitution is : ", end="")
-                    print(argument[i+1][j], "/", argument[i][j])
+                    print(args[i+1][j], "/", args[i][j])
                     flag += 1
 
         if(flag == 0):
@@ -53,35 +52,35 @@ def unify():
             flag += 1
 
 
-def check_arg_pred():
-    predflag = 0
-    argflag = 0
+def predCheck():
+    flag1 = 0
+    flag2 = 0
 
-   
-    for i in range(noPred-1):
-        if(predicate[i] != predicate[i+1]):
+
+    for i in range(count-1):
+        if(preds[i] != preds[i+1]):
             print("Not same, Unification cannot be done")
-            predflag = 1
+            flag1 = 1
             break
 
 
-    if(predflag != 1):
+    if(flag1 != 1):
         ind = 0
-        key = noArg[ind]
-        length = len(noArg)
+        key = arguCount[ind]
+        length = len(arguCount)
         for i in range(0, key-1):
             if i >= key:
                 continue
             if ind != length - 1:
                 ind += 1
-                key = noArg[ind]
-            if(noArg[i] != noArg[i+1]):
+                key = arguCount[ind]
+            if(arguCount[i] != arguCount[i+1]):
 
                 print("Number of arguments are not same")
                 argflag = 1
                 break
 
-        if(argflag == 0 and predflag != 1):
+        if(flag2 == 0 and flag1 != 1):
             unify()
 
 
